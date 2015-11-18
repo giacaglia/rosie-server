@@ -26,9 +26,7 @@ class ChatBackend(object):
             if message: # ['pattern', 'type', 'channel', 'data']
                 data = message["data"]
                 frame = str(data)
-                with open('./static/picture_out.png', 'wb') as f:
-                    f.write(frame)
-                yield "here"
+                yield base64.b64encode(frame)
 
     def get_frame(self):
         return self.frame
@@ -81,14 +79,3 @@ def outbox(ws):
     while not ws.closed:
         # Context switch while `ChatBackend.start` is running in the background.
         gevent.sleep()
-#
-# def gen(chat):
-#     while True:
-#         frame = chat.get_frame()
-#
-#         yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-#
-#
-# app.route('/video_feed')
-# def video_feed():
-#     return Response(gen(ChatBackend()), mimetype='multipart/x-mixed-replace; boundary=frame')

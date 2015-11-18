@@ -6,13 +6,9 @@ function hexToBase64(str) {
 }
 
 inbox.onmessage = function(message) {
-    console.log("hreuher")
     if (message) {
-        var frame = message.data
-        console.log(frame);
-        d = new Date();
-        $("#cam").attr("src", "static/picture_out.png?"+d.getTime());
-        //var data = JSON.parse(message.data);
+        var base_64_frame = message.data;
+        $("#cam").attr("src", "data:image/jpg;base64, " + base_64_frame);
     }
 };
 
