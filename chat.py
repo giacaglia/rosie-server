@@ -81,6 +81,14 @@ def outbox(ws):
         # Context switch while `ChatBackend.start` is running in the background.
         gevent.sleep()
 
+@sockets.route('/key_down')
+def inbox(ws):
+    while not ws.closed:
+        print("before message")
+        message = ws.receive()
+        print("message")
+        print(message)
+        # ws.send(message)
 
 # Second camera
 #

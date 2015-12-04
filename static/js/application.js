@@ -1,5 +1,4 @@
 var first_inbox = new ReconnectingWebSocket("ws://"+ location.host + "/receive");
-var outbox = new ReconnectingWebSocket("ws://"+ location.host + "/submit");
 
 first_inbox.onmessage = function(message) {
     if (message) {
@@ -14,17 +13,8 @@ first_inbox.onclose = function(){
 
 };
 
-
-outbox.onclose = function(){
-    console.log('outbox closed');
-    this.outbox = new WebSocket(outbox.url);
-};
-
-
 //Second camera
-
 var second_inbox = new ReconnectingWebSocket("ws://"+ location.host + "/receive_second");
-
 
 second_inbox.onmessage = function(message) {
     if (message) {
@@ -38,3 +28,42 @@ second_inbox.onclose = function(){
     this.second_inbox = new WebSocket(second_inbox.url);
 
 };
+
+
+var outbox = new ReconnectingWebSocket("ws://"+ location.host + "/key_down");
+outbox.onopen = function() {
+    outbox.send("lalaa");
+};
+outbox.onclose = function(){
+    console.log('outbox closed');
+    this.outbox = new WebSocket(outbox.url);
+};
+
+var targetElement = document.body;
+
+function getArrowKeyDirection (keyCode) {
+  return {
+    37: 'left',
+    39: 'right',
+    38: 'up',
+    40: 'down'
+  }[keyCode];
+}
+
+function isArrowKey (keyCode) {
+  return !!getArrowKeyDirection(keyCode);
+}
+
+targetElement.addEventListener('keydown', function (event) {
+  var direction,
+      keyCode = event.keyCode;
+
+  if (isArrowKey(keyCode)) {
+    direction = getArrowKeyDirection(keyCode);
+    if (direction == 'left') {
+        this.outbox.send(direction);
+    }
+  }
+});
+
+
