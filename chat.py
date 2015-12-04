@@ -69,7 +69,6 @@ def inbox(ws):
         gevent.sleep()
         base64_frame = ws.receive()
         if base64_frame:
-            print("lalla")
             frame = base64.b64decode(base64_frame)
             redis.publish(REDIS_CHAN, frame)
 
@@ -137,7 +136,6 @@ def inbox(ws):
         gevent.sleep(0.1)
         base64_frame = ws.receive()
         if base64_frame:
-            print("hey!")
             second_frame = base64.b64decode(base64_frame)
             redis.publish(REDIS_CHAN_2, second_frame)
 
