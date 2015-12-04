@@ -69,6 +69,7 @@ def inbox(ws):
         gevent.sleep()
         base64_frame = ws.receive()
         if base64_frame:
+            print("lalla")
             frame = base64.b64decode(base64_frame)
             redis.publish(REDIS_CHAN, frame)
 
