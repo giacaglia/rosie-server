@@ -84,12 +84,13 @@ def outbox(ws):
 @sockets.route('/key_down')
 def inbox(ws):
     while not ws.closed:
-        print("before message")
+        gevent.sleep(0.1)
         message = ws.receive()
-        print("message")
         print(message)
         # ws.send(message)
 
+#
+#
 # Second camera
 #
 #

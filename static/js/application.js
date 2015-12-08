@@ -26,7 +26,6 @@ second_inbox.onmessage = function(message) {
 second_inbox.onclose = function(){
     console.log('inbox closed');
     this.second_inbox = new WebSocket(second_inbox.url);
-
 };
 
 
@@ -55,15 +54,12 @@ function isArrowKey (keyCode) {
 }
 
 targetElement.addEventListener('keydown', function (event) {
-  var direction,
-      keyCode = event.keyCode;
-
-  if (isArrowKey(keyCode)) {
-    direction = getArrowKeyDirection(keyCode);
-    if (direction == 'left') {
-        this.outbox.send(direction);
+    var direction, keyCode = event.keyCode;
+    if (isArrowKey(keyCode)) {
+        direction = getArrowKeyDirection(keyCode);
+        if (direction == 'left') {
+            console.log("left");
+            outbox.send(direction);
+        }
     }
-  }
 });
-
-
