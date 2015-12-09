@@ -186,4 +186,5 @@ def outbox(ws):
         message = ws.receive()
         print("outbox")
         print(message)
+        ws.send(message)
         gevent.sleep()
