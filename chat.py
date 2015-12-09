@@ -82,6 +82,14 @@ def outbox(ws):
         # Context switch while `ChatBackend.start` is running in the background.
         gevent.sleep()
 
+@sockets.route('/key_down')
+def inbox(ws):
+    while not ws.closed:
+        gevent.sleep(0.1)
+        message = ws.receive()
+        print(message)
+        redis.publish(REDIS_CHAN_KEY_HANDLER, message)
+
 
 #
 # Second camera
@@ -191,10 +199,3 @@ class KeyDownHandler(object):
 key_handler = KeyDownHandler()
 key_handler.start()
 
-@sockets.route('/key_down')
-def inbox(ws):
-    while not ws.closed:
-        gevent.sleep(0.1)
-        message = ws.receive()
-        print(message)
-        redis.publish(REDIS_CHAN_KEY_HANDLER, message)
