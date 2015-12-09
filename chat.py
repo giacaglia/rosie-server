@@ -166,6 +166,10 @@ class KeyDownHandler(object):
     def start(self):
         gevent.spawn(self.run)
 
+
+key_handler = KeyDownHandler()
+key_handler.start()
+
 @sockets.route('/key_down')
 def inbox(ws):
     while not ws.closed:
@@ -173,5 +177,8 @@ def inbox(ws):
         message = ws.receive()
         redis.publish(REDIS_CHAN_KEY_HANDLER, message)
 
-key_handler = KeyDownHandler()
-key_handler.start()
+@sockets.route('/receive_key_down')
+def outbox(ws):
+    key_handler.register(ws)
+    while not ws.closed:
+        gevent.sleep()
