@@ -7,6 +7,7 @@ import base64
 REDIS_URL = os.environ['REDISCLOUD_URL']
 REDIS_CHAN = 'frame1'
 REDIS_CHAN_2 = 'frame2'
+REDIS_CHAN_KEY_HANDLER = 'key_handler'
 
 app = Flask(__name__)
 app.debug = 'DEBUG' in os.environ
@@ -81,14 +82,7 @@ def outbox(ws):
         # Context switch while `ChatBackend.start` is running in the background.
         gevent.sleep()
 
-@sockets.route('/key_down')
-def inbox(ws):
-    while not ws.closed:
-        gevent.sleep(0.1)
-        message = ws.receive()
-        # print(message)
-        ws.send(message)
-#
+
 #
 # Second camera
 #
@@ -155,3 +149,52 @@ def outbox(ws):
     while not ws.closed:
         # Context switch while `ChatBackend.start` is running in the background.
         gevent.sleep()
+
+#
+#
+# Send down key
+#
+#
+class KeyDownHandler(object):
+    """Interface for registering and updating WebSocket clients."""
+    def __init__(self):
+        self.clients = list()
+        self.pubsub = redis.pubsub()
+        self.pubsub.subscribe(REDIS_CHAN_KEY_HANDLER)
+
+    def __iter_data(self):
+        for message in self.pubsub.listen():
+            if message: # ['pattern', 'type', 'channel', 'data']
+                data = message["data"]
+                yield str(data)
+
+    def register(self, client):
+        self.clients.append(client)
+
+    def send(self, client, data):
+        try:
+            client.send(data)
+        except Exception:
+            self.clients.remove(client)
+
+    def run(self):
+        """Listens for new messages in Redis, and sends them to clients."""
+        for data in self.__iter_data():
+            for client in self.clients:
+                gevent.spawn(self.send, client, data)
+
+    def start(self):
+        """Maintains Redis subscription in the background."""
+        gevent.spawn(self.run)
+
+
+key_handler = KeyDownHandler()
+key_handler.start()
+
+@sockets.route('/key_down')
+def inbox(ws):
+    while not ws.closed:
+        gevent.sleep(0.1)
+        message = ws.receive()
+        redis.publish(REDIS_CHAN_KEY_HANDLER, message)
+        # print(message)
