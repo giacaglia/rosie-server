@@ -174,9 +174,7 @@ class KeyDownHandler(object):
                 data = message["data"]
                 print("data")
                 print(data)
-                for client in self.clients:
-                    print("client")
-                    gevent.spawn(self.send, client, data)
+                yield data
 
 
     def register(self, client):
@@ -195,7 +193,6 @@ class KeyDownHandler(object):
         """Listens for new messages in Redis, and sends them to clients."""
         for data in self.__iter_data():
             for client in self.clients:
-                print("send here")
                 gevent.spawn(self.send, client, data)
 
     def start(self):
