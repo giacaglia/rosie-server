@@ -36,6 +36,7 @@ class CameraBackend(object):
         self.clients.append(client)
 
     def send(self, client, data):
+        try:
             client.send(data)
         except Exception:
             self.clients.remove(client)
