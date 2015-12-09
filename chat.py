@@ -175,10 +175,15 @@ def inbox(ws):
     while not ws.closed:
         gevent.sleep(0.1)
         message = ws.receive()
+        print("inbox")
+        print(message)
         redis.publish(REDIS_CHAN_KEY_HANDLER, message)
 
-@sockets.route('/receive_key_down')
+@sockets.route('/key_down')
 def outbox(ws):
     key_handler.register(ws)
     while not ws.closed:
+        message = ws.receive()
+        print("outbox")
+        print(message)
         gevent.sleep()
