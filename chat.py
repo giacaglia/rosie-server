@@ -184,6 +184,7 @@ class KeyDownHandler(object):
             print(data)
             client.send(data)
         except Exception:
+            print("Exception")
             self.clients.remove(client)
 
     def run(self):
