@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb7c9023-47ef-456b-9454-275e63d3100e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/application.js" afterPath="$PROJECT_DIR$/static/js/application.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chat.py" afterPath="$PROJECT_DIR$/chat.py" />
     </list>
     <ignored path="rosie-server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,11 +32,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="chat.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="chat.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chat.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.6666666">
-              <caret line="3" column="8" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.46666667">
+              <caret line="172" column="0" selection-start-line="172" selection-start-column="2" selection-end-line="179" selection-end-column="56" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+                <marker date="1449628843000" expanded="true" signature="4183:4378" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="flask_sockets.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/flask_sockets.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -51,10 +65,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="application.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24444444">
+            <state vertical-scroll-proportion="-6.111111">
               <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
               <folding />
             </state>
@@ -80,8 +94,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/templates/index.html" />
-        <option value="$PROJECT_DIR$/chat.py" />
         <option value="$PROJECT_DIR$/static/js/application.js" />
+        <option value="$PROJECT_DIR$/chat.py" />
       </list>
     </option>
   </component>
@@ -470,7 +484,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
-          <folding />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1449628843000" expanded="true" signature="4183:4378" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -502,7 +519,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="141" column="31" selection-start-line="141" selection-start-column="17" selection-end-line="141" selection-end-column="31" />
-          <folding />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1449628843000" expanded="true" signature="4183:4378" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -518,7 +538,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="30" column="23" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="23" />
-          <folding />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1449628843000" expanded="true" signature="4183:4378" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -534,7 +557,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1449628843000" expanded="true" signature="4183:4378" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -566,7 +592,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1449628843000" expanded="true" signature="4183:4378" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -597,7 +626,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="19" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="19" />
-          <folding />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1449628843000" expanded="true" signature="4183:4378" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -628,7 +660,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="94" column="16" selection-start-line="94" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
-          <folding />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1449628843000" expanded="true" signature="4183:4378" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -724,19 +759,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chat.py">
+    <entry file="file://$PROJECT_DIR$/static/js/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.6666666">
-          <caret line="3" column="8" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="8" />
+        <state vertical-scroll-proportion="-6.111111">
+          <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/application.js">
+    <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/flask_sockets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24444444">
-          <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46666667">
+          <caret line="172" column="0" selection-start-line="172" selection-start-column="2" selection-end-line="179" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1449628843000" expanded="true" signature="4183:4378" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

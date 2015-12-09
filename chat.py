@@ -170,14 +170,14 @@ class KeyDownHandler(object):
 key_handler = KeyDownHandler()
 key_handler.start()
 
-@sockets.route('/key_down')
-def inbox(ws):
-    while not ws.closed:
-        gevent.sleep(0.1)
-        message = ws.receive()
-        print("inbox")
-        print(message)
-        redis.publish(REDIS_CHAN_KEY_HANDLER, message)
+# @sockets.route('/key_down')
+# def inbox(ws):
+#     while not ws.closed:
+#         gevent.sleep(0.1)
+#         message = ws.receive()
+#         print("inbox")
+#         print(message)
+#         redis.publish(REDIS_CHAN_KEY_HANDLER, message)
 
 @sockets.route('/key_down')
 def outbox(ws):
