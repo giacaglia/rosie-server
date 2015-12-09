@@ -87,8 +87,6 @@ def inbox(ws):
     while not ws.closed:
         gevent.sleep(0.1)
         message = ws.receive()
-        print("message")
-        print(message)
         redis.publish(REDIS_CHAN_KEY_HANDLER, message)
 
 #
@@ -174,7 +172,10 @@ class KeyDownHandler(object):
         for message in self.pubsub.listen():
             if message: # ['pattern', 'type', 'channel', 'data']
                 data = message["data"]
+                print("data")
+                print(data)
                 for client in self.clients:
+                    print("client")
                     self.send(client, data)
 
 
