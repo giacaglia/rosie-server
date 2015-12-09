@@ -5,8 +5,8 @@ from flask import Flask, render_template
 from flask_sockets import Sockets
 import base64
 REDIS_URL = os.environ['REDISCLOUD_URL']
-REDIS_CHAN = 'frame1'
-REDIS_CHAN_2 = 'frame2'
+REDIS_CHAN_FRAME = 'frame1'
+REDIS_CHAN_2_FRAME = 'frame2'
 REDIS_CHAN_KEY_HANDLER = 'key_handler'
 
 app = Flask(__name__)
@@ -21,7 +21,7 @@ class ChatBackend(object):
         self.frame = ""
         self.clients = list()
         self.pubsub = redis.pubsub()
-        self.pubsub.subscribe(REDIS_CHAN)
+        self.pubsub.subscribe(REDIS_CHAN_FRAME)
 
     def __iter_data(self):
         for message in self.pubsub.listen():
@@ -71,7 +71,7 @@ def inbox(ws):
         base64_frame = ws.receive()
         if base64_frame:
             frame = base64.b64decode(base64_frame)
-            redis.publish(REDIS_CHAN, frame)
+            redis.publish(REDIS_CHAN_FRAME, frame)
 
 @sockets.route('/receive')
 def outbox(ws):
@@ -103,7 +103,7 @@ class SecondChatBackend(object):
         self.frame = ""
         self.clients = list()
         self.pubsub = redis.pubsub()
-        self.pubsub.subscribe(REDIS_CHAN_2)
+        self.pubsub.subscribe(REDIS_CHAN_2_FRAME)
 
     def __iter_data(self):
         for message in self.pubsub.listen():
@@ -147,7 +147,7 @@ def inbox(ws):
         base64_frame = ws.receive()
         if base64_frame:
             second_frame = base64.b64decode(base64_frame)
-            redis.publish(REDIS_CHAN_2, second_frame)
+            redis.publish(REDIS_CHAN_2_FRAME, second_frame)
 
 @sockets.route('/receive_second')
 def outbox(ws):
@@ -160,7 +160,7 @@ def outbox(ws):
 
 #
 #
-# Send down key
+# Key Down Handler
 #
 #
 class KeyDownHandler(object):
@@ -174,6 +174,8 @@ class KeyDownHandler(object):
         for message in self.pubsub.listen():
             if message: # ['pattern', 'type', 'channel', 'data']
                 data = message["data"]
+                print("iterate over data")
+                print(data)
                 yield str(data)
 
     def register(self, client):
