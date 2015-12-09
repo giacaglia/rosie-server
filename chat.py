@@ -186,5 +186,5 @@ def outbox(ws):
         message = ws.receive()
         print("outbox")
         print(message)
-o        redis.publish(REDIS_CHAN_KEY_HANDLER, message)
+        redis.publish(REDIS_CHAN_KEY_HANDLER, message)
         gevent.sleep()
