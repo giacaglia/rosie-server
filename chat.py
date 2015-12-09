@@ -86,9 +86,8 @@ def inbox(ws):
     while not ws.closed:
         gevent.sleep(0.1)
         message = ws.receive()
-        print(message)
-        # ws.send(message)
-
+        # print(message)
+        ws.send(message)
 #
 #
 # Second camera
