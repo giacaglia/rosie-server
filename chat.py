@@ -174,9 +174,9 @@ class KeyDownHandler(object):
         for message in self.pubsub.listen():
             if message: # ['pattern', 'type', 'channel', 'data']
                 data = message["data"]
-                print("iterate over data")
-                print(data)
-                yield str(data)
+                for client in self.clients:
+                    self.send(client, data)
+
 
     def register(self, client):
         self.clients.append(client)
