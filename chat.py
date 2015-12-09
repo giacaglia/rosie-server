@@ -5,8 +5,8 @@ from flask import Flask, render_template
 from flask_sockets import Sockets
 import base64
 REDIS_URL = os.environ['REDISCLOUD_URL']
-REDIS_CHAN_FRAME = 'frame1'
-REDIS_CHAN_2_FRAME = 'frame2'
+REDIS_CHAN_FRAME = 'frame_1'
+REDIS_CHAN_2_FRAME = 'frame_2'
 REDIS_CHAN_KEY_HANDLER = 'key_handler'
 
 app = Flask(__name__)
@@ -15,8 +15,7 @@ app.debug = 'DEBUG' in os.environ
 sockets = Sockets(app)
 redis = redis.from_url(REDIS_URL)
 
-class ChatBackend(object):
-    """Interface for registering and updating WebSocket clients."""
+class CameraBackend(object):
     def __init__(self):
         self.frame = ""
         self.clients = list()
@@ -34,28 +33,22 @@ class ChatBackend(object):
         return self.frame
 
     def register(self, client):
-        """Register a WebSocket connection for Redis updates."""
         self.clients.append(client)
 
     def send(self, client, data):
-        """Send given data to the registered client.
-        Automatically discards invalid connections."""
-        try:
             client.send(data)
         except Exception:
             self.clients.remove(client)
 
     def run(self):
-        """Listens for new messages in Redis, and sends them to clients."""
         for data in self.__iter_data():
             for client in self.clients:
                 gevent.spawn(self.send, client, data)
 
     def start(self):
-        """Maintains Redis subscription in the background."""
         gevent.spawn(self.run)
 
-chats = ChatBackend()
+chats = CameraBackend()
 chats.start()
 
 @app.route('/')
@@ -64,9 +57,7 @@ def hello():
 
 @sockets.route('/submit')
 def inbox(ws):
-    """Receives incoming chat messages, inserts them into Redis."""
     while not ws.closed:
-        # Sleep to prevent *contstant* context-switches.
         gevent.sleep()
         base64_frame = ws.receive()
         if base64_frame:
@@ -75,28 +66,16 @@ def inbox(ws):
 
 @sockets.route('/receive')
 def outbox(ws):
-    """Sends outgoing chat messages, via `ChatBackend`."""
     chats.register(ws)
-
     while not ws.closed:
-        # Context switch while `ChatBackend.start` is running in the background.
         gevent.sleep()
 
-@sockets.route('/key_down')
-def inbox(ws):
-    while not ws.closed:
-        gevent.sleep(0.1)
-        message = ws.receive()
-        redis.publish(REDIS_CHAN_KEY_HANDLER, message)
-
+#
 #
 # Second camera
 #
 #
-#
-#
-class SecondChatBackend(object):
-    """Interface for registering and updating WebSocket clients."""
+class SecondCameraBackend(object):
     def __init__(self):
         self.frame = ""
         self.clients = list()
@@ -114,28 +93,23 @@ class SecondChatBackend(object):
         return self.frame
 
     def register(self, client):
-        """Register a WebSocket connection for Redis updates."""
         self.clients.append(client)
 
     def send(self, client, data):
-        """Send given data to the registered client.
-        Automatically discards invalid connections."""
         try:
             client.send(data)
         except Exception:
             self.clients.remove(client)
 
     def run(self):
-        """Listens for new messages in Redis, and sends them to clients."""
         for data in self.__iter_data():
             for client in self.clients:
                 gevent.spawn(self.send, client, data)
 
     def start(self):
-        """Maintains Redis subscription in the background."""
         gevent.spawn(self.run)
 
-second_chats = SecondChatBackend()
+second_chats = SecondCameraBackend()
 second_chats.start()
 
 @sockets.route('/submit_second')
@@ -149,11 +123,8 @@ def inbox(ws):
 
 @sockets.route('/receive_second')
 def outbox(ws):
-    """Sends outgoing chat messages, via `ChatBackend`."""
     second_chats.register(ws)
-
     while not ws.closed:
-        # Context switch while `ChatBackend.start` is running in the background.
         gevent.sleep()
 
 #
@@ -162,7 +133,6 @@ def outbox(ws):
 #
 #
 class KeyDownHandler(object):
-    """Interface for registering and updating WebSocket clients."""
     def __init__(self):
         self.clients = list()
         self.pubsub = redis.pubsub()
@@ -170,7 +140,7 @@ class KeyDownHandler(object):
 
     def __iter_data(self):
         for message in self.pubsub.listen():
-            if message: # ['pattern', 'type', 'channel', 'data']
+            if message:
                 data = message["data"]
                 print("data")
                 print(data)
@@ -182,24 +152,25 @@ class KeyDownHandler(object):
 
     def send(self, client, data):
         try:
-            print("send data")
-            print(data)
             client.send(data)
         except Exception:
-            print("Exception")
             self.clients.remove(client)
 
     def run(self):
-        """Listens for new messages in Redis, and sends them to clients."""
         for data in self.__iter_data():
+            print("It's iterating")
             for client in self.clients:
                 gevent.spawn(self.send, client, data)
 
     def start(self):
-        """Maintains Redis subscription in the background."""
         gevent.spawn(self.run)
 
+@sockets.route('/key_down')
+def inbox(ws):
+    while not ws.closed:
+        gevent.sleep(0.1)
+        message = ws.receive()
+        redis.publish(REDIS_CHAN_KEY_HANDLER, message)
 
 key_handler = KeyDownHandler()
 key_handler.start()
-
