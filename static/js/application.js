@@ -31,7 +31,7 @@ second_inbox.onclose = function(){
 
 var outbox = new ReconnectingWebSocket("ws://"+ location.host + "/key_down");
 outbox.onopen = function() {
-    outbox.send("lalaa");
+    console.log("outbox open again")
 };
 outbox.onclose = function(){
     console.log('outbox closed');
