@@ -34,7 +34,7 @@
       <file leaf-file-name="chat.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chat.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.6888889">
+            <state vertical-scroll-proportion="-1.6">
               <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -726,7 +726,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chat.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.6888889">
+        <state vertical-scroll-proportion="-1.6">
           <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />

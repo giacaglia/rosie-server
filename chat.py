@@ -87,9 +87,8 @@ def inbox(ws):
     while not ws.closed:
         gevent.sleep(0.1)
         message = ws.receive()
-        print(message)
+        # print(message)
         redis.publish(REDIS_CHAN_KEY_HANDLER, message)
-
 
 #
 # Second camera
@@ -181,6 +180,8 @@ class KeyDownHandler(object):
 
     def send(self, client, data):
         try:
+            print("send data")
+            print(data)
             client.send(data)
         except Exception:
             self.clients.remove(client)
